@@ -25,7 +25,7 @@
 
 **This repository is a Morphe patch source for TikTok.**
 
-**It continues the work from earlier community TikTok patch sets, including ReVanced, with the patches adapted for Morphe and tested against newer TikTok builds. The current target version is [TikTok `43.8.3`](https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok/tiktok-43-8-3-2-release/tiktok-43-8-3-4-android-apk-download/), package `com.ss.android.ugc.trill`.**
+**It continues the work from earlier community TikTok patch sets, including ReVanced, with the patches adapted for Morphe and tested against newer TikTok builds. The current target version is [TikTok `43.8.3`](https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok/tiktok-43-8-3-2-release/tiktok-43-8-3-4-android-apk-download/), with metadata support for both `com.zhiliaoapp.musically` and `com.ss.android.ugc.trill`.**
 
 The goal is to keep the existing patch set usable while adding more TikTok-focused features over time. Some features are small fixes, some are quality-of-life changes, and some need deeper testing because TikTok changes its internals often.
 
@@ -78,11 +78,12 @@ You can also copy this repository URL and paste it into Morphe's add source fiel
 ## Supported Target
 
 - App: TikTok
-- Package: `com.ss.android.ugc.trill`
 - Version: [`43.8.3`](https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok/tiktok-43-8-3-2-release/tiktok-43-8-3-4-android-apk-download/)
 - Build code: `430803`
+- Global package: `com.zhiliaoapp.musically`
+- JP package: `com.ss.android.ugc.trill`
 
-Only this target is listed in the patch metadata because it is the version this source was adapted and tested against.
+The local APK used while adapting and testing this source was `com.ss.android.ugc.trill` `43.8.3`. The patch metadata also declares `com.zhiliaoapp.musically` `43.8.3` because that is the common global TikTok package.
 
 ## Building
 
@@ -113,7 +114,7 @@ Morphe reads `patches-bundle.json` from this repository, downloads the `.mpp` re
 
 - The source is based on [RookieEnough/De-Vanced](https://github.com/RookieEnough/De-Vanced) and the [Morphe patches template](https://github.com/MorpheApp/morphe-patches-template).
 - It is not affiliated with TikTok, ByteDance, or Morphe.
-- TikTok changes often, so compatibility is intentionally tied to the exact version listed above.
+- TikTok changes often, so compatibility is intentionally tied to the exact version and packages listed above.
 
 <br>
 
