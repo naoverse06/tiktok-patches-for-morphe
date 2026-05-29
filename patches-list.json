@@ -32,7 +32,7 @@
     },
     {
       "name": "Downloads",
-      "description": "Removes download restrictions and changes the default download path. (Supports TikTok 43.8.3.)",
+      "description": "Downloads videos without watermark and adds download-related controls. (Supports TikTok 43.8.3.)",
       "use": true,
       "dependencies": [
         "BytecodePatch"

@@ -27,7 +27,7 @@ private const val EXTENSION_CLASS_DESCRIPTOR = "Lapp/morphe/extension/tiktok/dow
 @Suppress("unused")
 val downloadsPatch = bytecodePatch(
     name = "Downloads",
-    description = "Removes download restrictions and changes the default download path. (Supports TikTok 43.8.3.)",
+    description = "Downloads videos without watermark and adds download-related controls. (Supports TikTok 43.8.3.)",
     default = true,
 ) {
     dependsOn(sharedExtensionPatch)
