@@ -227,11 +227,17 @@ internal object AppCompatibilities {
         targets = listOf(AppTarget("25.9.2.0"), AppTarget("26.1.2.0")),
     )
 
-    /** Tested target: TikTok package com.ss.android.ugc.trill, version 43.8.3. */
+    /** Target: TikTok 43.8.3. The local test APK used com.ss.android.ugc.trill. */
     fun tiktok4383(): Array<Compatibility> = arrayOf(
         Compatibility(
-            name = "TikTok",
+            name = "TikTok (JP)",
             packageName = "com.ss.android.ugc.trill",
+            appIconColor = TIKTOK_COLOR,
+            targets = listOf(AppTarget("43.8.3")),
+        ),
+        Compatibility(
+            name = "TikTok",
+            packageName = "com.zhiliaoapp.musically",
             appIconColor = TIKTOK_COLOR,
             targets = listOf(AppTarget("43.8.3")),
         ),

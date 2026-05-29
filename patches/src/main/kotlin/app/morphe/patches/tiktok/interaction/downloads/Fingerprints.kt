@@ -8,27 +8,24 @@ import app.morphe.patcher.Fingerprint
 import com.android.tools.smali.dexlib2.AccessFlags
 
 internal object AclCommonShareFingerprint : Fingerprint(
+    definingClass = "/ACLCommonShare;",
+    name = "getCode",
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
     returnType = "I",
-    custom = { method, classDef ->
-        classDef.endsWith("/ACLCommonShare;") && method.name == "getCode"
-    },
 )
 
 internal object AclCommonShare2Fingerprint : Fingerprint(
+    definingClass = "/ACLCommonShare;",
+    name = "getShowType",
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
     returnType = "I",
-    custom = { method, classDef ->
-        classDef.endsWith("/ACLCommonShare;") && method.name == "getShowType"
-    },
 )
 
 internal object AclCommonShare3Fingerprint : Fingerprint(
+    definingClass = "/ACLCommonShare;",
+    name = "getTranscode",
     accessFlags = listOf(AccessFlags.PUBLIC, AccessFlags.FINAL),
     returnType = "I",
-    custom = { method, classDef ->
-        classDef.endsWith("/ACLCommonShare;") && method.name == "getTranscode"
-    },
 )
 
 internal object DownloadUriFingerprint : Fingerprint(

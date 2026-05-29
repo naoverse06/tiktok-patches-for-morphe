@@ -17,11 +17,11 @@ public class MorpheTikTokAboutPreference extends Preference {
     public MorpheTikTokAboutPreference(Context context) {
         super(context);
 
-        setTitle("About");
-        setSummary("About Morphe");
+        setTitle("Support my work");
+        setSummary("If you are using these patches, supporting the project helps me keep testing, improving, and maintaining them.");
 
         setOnPreferenceClickListener(pref -> {
-            app.morphe.extension.shared.Utils.openLink("https://github.com/MorpheApp/morphe-cli");
+            app.morphe.extension.shared.Utils.openLink("https://ko-fi.com/P5P5YOUU7");
             return true;
         });
     }
