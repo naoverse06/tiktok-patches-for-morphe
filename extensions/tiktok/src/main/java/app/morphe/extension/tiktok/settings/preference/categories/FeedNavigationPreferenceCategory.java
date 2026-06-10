@@ -38,5 +38,22 @@ public class FeedNavigationPreferenceCategory extends ConditionalPreferenceCateg
                 "Hide tabs TikTok adds later unless you allow them.",
                 Settings.FEED_NAVIGATION_BLOCK_NEW_TABS
         ));
+        addPreference(new TogglePreference(
+                context,
+                "Filter bottom tabs",
+                "Choose which loaded TikTok bottom navigation tabs should stay visible.",
+                Settings.BOTTOM_NAVIGATION
+        ));
+        addPreference(new TabSelectionPreference(
+                context,
+                Settings.BOTTOM_NAVIGATION_TABS,
+                true
+        ));
+        addPreference(new TogglePreference(
+                context,
+                "Block new bottom tabs",
+                "Hide bottom tabs TikTok adds later unless you allow them.",
+                Settings.BOTTOM_NAVIGATION_BLOCK_NEW_TABS
+        ));
     }
 }

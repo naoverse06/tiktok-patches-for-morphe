@@ -13,6 +13,7 @@ import app.morphe.extension.shared.settings.BooleanSetting;
 import app.morphe.extension.shared.settings.FloatSetting;
 import app.morphe.extension.shared.settings.Setting;
 import app.morphe.extension.shared.settings.StringSetting;
+import app.morphe.extension.tiktok.navigation.BottomNavigationTabOptions;
 import app.morphe.extension.tiktok.navigation.NavigationTabOptions;
 
 public class Settings extends BaseSettings {
@@ -39,6 +40,25 @@ public class Settings extends BaseSettings {
     public static final StringSetting FEED_NAVIGATION_OBSERVED_TABS = new StringSetting(
             "feed_navigation_observed_tabs",
             NavigationTabOptions.HOT,
+            false,
+            false
+    );
+    public static final BooleanSetting BOTTOM_NAVIGATION = new BooleanSetting("bottom_navigation", FALSE, true);
+    public static final StringSetting BOTTOM_NAVIGATION_TABS = new StringSetting(
+            "bottom_navigation_tabs",
+            BottomNavigationTabOptions.defaultEnabledKeys(),
+            true,
+            Setting.parent(BOTTOM_NAVIGATION)
+    );
+    public static final BooleanSetting BOTTOM_NAVIGATION_BLOCK_NEW_TABS = new BooleanSetting(
+            "bottom_navigation_block_new_tabs",
+            FALSE,
+            true,
+            Setting.parent(BOTTOM_NAVIGATION)
+    );
+    public static final StringSetting BOTTOM_NAVIGATION_OBSERVED_TABS = new StringSetting(
+            "bottom_navigation_observed_tabs",
+            BottomNavigationTabOptions.HOME,
             false,
             false
     );

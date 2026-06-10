@@ -43,5 +43,13 @@ val feedTabNavigationPatch = bytecodePatch(
                 )
             }
         }
+
+        BottomTabBuildListFingerprint.method.addInstructions(
+            0,
+            """
+                invoke-static/range {p1 .. p1}, $EXTENSION_CLASS_DESCRIPTOR->filterBottomTabs(Ljava/util/List;)Ljava/util/List;
+                move-result-object p1
+            """,
+        )
     }
 }

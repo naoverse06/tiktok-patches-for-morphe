@@ -20,19 +20,26 @@ import java.util.Set;
 
 import app.morphe.extension.shared.settings.StringSetting;
 import app.morphe.extension.shared.settings.preference.AbstractPreferenceFragment;
+import app.morphe.extension.tiktok.navigation.BottomNavigationTabOptions;
 import app.morphe.extension.tiktok.navigation.NavigationTabOptions;
 import app.morphe.extension.tiktok.settings.Settings;
 
 @SuppressWarnings("deprecation")
 public class TabSelectionPreference extends Preference {
     private final StringSetting setting;
+    private final boolean bottomTabs;
     private String value;
     private boolean valueSet;
 
     public TabSelectionPreference(Context context, StringSetting setting) {
+        this(context, setting, false);
+    }
+
+    public TabSelectionPreference(Context context, StringSetting setting, boolean bottomTabs) {
         super(context);
         this.setting = setting;
-        setTitle("Allowed loaded tabs");
+        this.bottomTabs = bottomTabs;
+        setTitle(bottomTabs ? "Allowed bottom tabs" : "Allowed loaded tabs");
         setKey(setting.key);
         setValue(setting.get());
     }
@@ -42,9 +49,7 @@ public class TabSelectionPreference extends Preference {
     }
 
     public boolean setValue(String value) {
-        String sanitizedValue = NavigationTabOptions.serializeEnabledKeys(
-                NavigationTabOptions.parseEnabledKeys(value)
-        );
+        String sanitizedValue = serializeEnabledKeys(parseEnabledKeys(value));
         boolean changed = !TextUtils.equals(this.value, sanitizedValue);
         if (changed || !valueSet) {
             this.value = sanitizedValue;
@@ -71,16 +76,16 @@ public class TabSelectionPreference extends Preference {
     }
 
     private void refreshSummary() {
-        Set<String> selected = NavigationTabOptions.parseEnabledKeys(value);
-        List<NavigationTabOptions.Option> observedOptions = getObservedOptions();
+        Set<String> selected = parseEnabledKeys(value);
+        List<OptionRow> observedOptions = getObservedOptions();
         if (observedOptions.size() <= 1) {
-            setSummary("Open TikTok home feed to detect loaded tabs.");
+            setSummary(bottomTabs ? "Open TikTok home to detect loaded bottom tabs." : "Open TikTok home feed to detect loaded tabs.");
             return;
         }
 
         int selectedObserved = 0;
         StringBuilder builder = new StringBuilder();
-        for (NavigationTabOptions.Option option : observedOptions) {
+        for (OptionRow option : observedOptions) {
             if (!selected.contains(option.key)) {
                 continue;
             }
@@ -98,7 +103,7 @@ public class TabSelectionPreference extends Preference {
         }
 
         if (builder.length() == 0) {
-            setSummary("For You");
+            setSummary(bottomTabs ? "Home" : "For You");
             return;
         }
         setSummary(builder.toString());
@@ -106,8 +111,8 @@ public class TabSelectionPreference extends Preference {
 
     private void showSelectionDialog() {
         Context context = getContext();
-        Set<String> selected = new LinkedHashSet<>(NavigationTabOptions.parseEnabledKeys(value));
-        List<NavigationTabOptions.Option> observedOptions = getObservedOptions();
+        Set<String> selected = new LinkedHashSet<>(parseEnabledKeys(value));
+        List<OptionRow> observedOptions = getObservedOptions();
 
         LinearLayout dialogView = new LinearLayout(context);
         dialogView.setOrientation(LinearLayout.VERTICAL);
@@ -116,7 +121,7 @@ public class TabSelectionPreference extends Preference {
         dialogView.setPadding(padding, padding, padding, padding);
 
         TextView title = new TextView(context);
-        title.setText("Allowed loaded tabs");
+        title.setText(bottomTabs ? "Allowed bottom tabs" : "Allowed loaded tabs");
         title.setTextColor(getTitleTextColor());
         title.setTextSize(20);
         title.setTypeface(title.getTypeface(), Typeface.BOLD);
@@ -126,7 +131,9 @@ public class TabSelectionPreference extends Preference {
         ));
 
         TextView helper = new TextView(context);
-        helper.setText("Only tabs TikTok has loaded on this device are shown here. This does not force unavailable tabs to appear.");
+        helper.setText(bottomTabs
+                ? "Only bottom tabs TikTok has loaded on this device are shown here. This does not force unavailable tabs to appear."
+                : "Only tabs TikTok has loaded on this device are shown here. This does not force unavailable tabs to appear.");
         helper.setTextColor(getSummaryTextColor());
         LinearLayout.LayoutParams helperParams = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -141,7 +148,7 @@ public class TabSelectionPreference extends Preference {
         int optionInset = Math.max(1, dpToPx(1));
         optionsContainer.setPadding(optionInset, optionInset, optionInset, optionInset);
 
-        for (NavigationTabOptions.Option option : observedOptions) {
+        for (OptionRow option : observedOptions) {
             optionsContainer.addView(createOptionRow(context, selected, option));
         }
 
@@ -183,10 +190,10 @@ public class TabSelectionPreference extends Preference {
 
         showAllButton.setOnClickListener(view -> {
             selected.clear();
-            for (NavigationTabOptions.Option option : observedOptions) {
+            for (OptionRow option : observedOptions) {
                 selected.add(option.key);
             }
-            boolean changed = setValue(NavigationTabOptions.serializeEnabledKeys(selected));
+            boolean changed = setValue(serializeEnabledKeys(selected));
             dialog.dismiss();
             if (changed && setting.rebootApp) {
                 AbstractPreferenceFragment.showRestartDialog(context);
@@ -194,7 +201,7 @@ public class TabSelectionPreference extends Preference {
         });
         cancelButton.setOnClickListener(view -> dialog.dismiss());
         saveButton.setOnClickListener(view -> {
-            boolean changed = setValue(NavigationTabOptions.serializeEnabledKeys(selected));
+            boolean changed = setValue(serializeEnabledKeys(selected));
             dialog.dismiss();
             if (changed && setting.rebootApp) {
                 AbstractPreferenceFragment.showRestartDialog(context);
@@ -205,13 +212,26 @@ public class TabSelectionPreference extends Preference {
         SettingsUi.styleDialog(dialog);
     }
 
-    private List<NavigationTabOptions.Option> getObservedOptions() {
-        Set<String> observed = NavigationTabOptions.parseObservedKeys(Settings.FEED_NAVIGATION_OBSERVED_TABS.get());
-        observed.add(NavigationTabOptions.HOT);
-        return NavigationTabOptions.optionsForKeys(observed);
+    private List<OptionRow> getObservedOptions() {
+        LinkedHashSet<OptionRow> rows = new LinkedHashSet<>();
+        if (bottomTabs) {
+            Set<String> observed = BottomNavigationTabOptions.parseObservedKeys(Settings.BOTTOM_NAVIGATION_OBSERVED_TABS.get());
+            observed.add(BottomNavigationTabOptions.HOME);
+            observed.add(BottomNavigationTabOptions.PROFILE);
+            for (BottomNavigationTabOptions.Option option : BottomNavigationTabOptions.optionsForKeys(observed)) {
+                rows.add(new OptionRow(option.key, option.label));
+            }
+        } else {
+            Set<String> observed = NavigationTabOptions.parseObservedKeys(Settings.FEED_NAVIGATION_OBSERVED_TABS.get());
+            observed.add(NavigationTabOptions.HOT);
+            for (NavigationTabOptions.Option option : NavigationTabOptions.optionsForKeys(observed)) {
+                rows.add(new OptionRow(option.key, option.label));
+            }
+        }
+        return new java.util.ArrayList<>(rows);
     }
 
-    private View createOptionRow(Context context, Set<String> selected, NavigationTabOptions.Option option) {
+    private View createOptionRow(Context context, Set<String> selected, OptionRow option) {
         LinearLayout row = new LinearLayout(context);
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);
@@ -220,7 +240,7 @@ public class TabSelectionPreference extends Preference {
 
         CheckBox checkBox = new CheckBox(context);
         checkBox.setChecked(selected.contains(option.key));
-        checkBox.setEnabled(!NavigationTabOptions.HOT.equals(option.key));
+        checkBox.setEnabled(!isRequiredOption(option.key));
         checkBox.setClickable(false);
         SettingsUi.styleCheckBox(checkBox);
         row.addView(checkBox, new LinearLayout.LayoutParams(
@@ -237,7 +257,7 @@ public class TabSelectionPreference extends Preference {
         label.setTextSize(16);
         textContainer.addView(label);
 
-        if (NavigationTabOptions.HOT.equals(option.key)) {
+        if (isRequiredOption(option.key)) {
             TextView summary = new TextView(context);
             summary.setText("Required");
             summary.setTextColor(getSummaryTextColor());
@@ -253,7 +273,7 @@ public class TabSelectionPreference extends Preference {
         row.addView(textContainer, textParams);
 
         row.setOnClickListener(view -> {
-            if (NavigationTabOptions.HOT.equals(option.key)) {
+            if (isRequiredOption(option.key)) {
                 return;
             }
 
@@ -290,6 +310,34 @@ public class TabSelectionPreference extends Preference {
         button.setPadding(dpToPx(12), dpToPx(8), dpToPx(12), dpToPx(6));
         SettingsUi.styleTextAction(button, primary);
         return button;
+    }
+
+    private Set<String> parseEnabledKeys(String value) {
+        return bottomTabs
+                ? BottomNavigationTabOptions.parseEnabledKeys(value)
+                : NavigationTabOptions.parseEnabledKeys(value);
+    }
+
+    private String serializeEnabledKeys(Set<String> selected) {
+        return bottomTabs
+                ? BottomNavigationTabOptions.serializeEnabledKeys(selected)
+                : NavigationTabOptions.serializeEnabledKeys(selected);
+    }
+
+    private boolean isRequiredOption(String key) {
+        return bottomTabs
+                ? BottomNavigationTabOptions.isRequiredKey(key)
+                : NavigationTabOptions.HOT.equals(key);
+    }
+
+    private static final class OptionRow {
+        final String key;
+        final String label;
+
+        OptionRow(String key, String label) {
+            this.key = key;
+            this.label = label;
+        }
     }
 
     private int dpToPx(int dp) {
