@@ -1,9 +1,63 @@
 {
-  "version": "0.2.0-dev.1",
+  "version": "0.2.0-dev.2",
   "appNames": {
     "com.zhiliaoapp.musically": "TikTok"
   },
   "patches": [
+    {
+      "name": "Copy comments without username",
+      "description": "Copies only the comment text when copying TikTok comments. (Supports TikTok 43.8.3.)",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch"
+      ],
+      "compatiblePackages": {
+        "com.zhiliaoapp.musically": [
+          "43.8.3"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "TikTok",
+          "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Custom offline videos limit",
+      "description": "Adds a configurable custom option to TikTok's offline videos menu. (Supports TikTok 43.8.3.)",
+      "use": true,
+      "dependencies": [],
+      "compatiblePackages": {
+        "com.zhiliaoapp.musically": [
+          "43.8.3"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "TikTok",
+          "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
     {
       "name": "Disable login requirement",
       "description": "Disables mandatory login for TikTok. (Supports TikTok 43.8.3.)",
@@ -32,7 +86,7 @@
     },
     {
       "name": "Downloads",
-      "description": "Downloads videos without watermark and adds download-related controls. (Supports TikTok 43.8.3.)",
+      "description": "Downloads videos and images without watermark, saves comment stickers/images, and adds download-related controls. (Supports TikTok 43.8.3.)",
       "use": true,
       "dependencies": [
         "BytecodePatch"
@@ -115,10 +169,66 @@
       "options": []
     },
     {
+      "name": "Feed tab navigation",
+      "description": "Adds controls to choose which top feed tabs are visible. For You stays enabled for stability. Supports TikTok 43.8.3.",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch"
+      ],
+      "compatiblePackages": {
+        "com.zhiliaoapp.musically": [
+          "43.8.3"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "TikTok",
+          "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Fix Google login",
       "description": "Allows logging in with a Google account. (Supports TikTok 43.8.3.)",
       "use": true,
       "dependencies": [],
+      "compatiblePackages": {
+        "com.zhiliaoapp.musically": [
+          "43.8.3"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "TikTok",
+          "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Follow diagnostics",
+      "description": "Adds debug-only logs around TikTok follow requests to help diagnose follow actions that do not persist. (Supports TikTok 43.8.3.)",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch"
+      ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
@@ -284,6 +394,34 @@
       "description": "Shows a progress bar for all videos. (Supports TikTok 43.8.3.)",
       "use": true,
       "dependencies": [],
+      "compatiblePackages": {
+        "com.zhiliaoapp.musically": [
+          "43.8.3"
+        ]
+      },
+      "compatibility": [
+        {
+          "name": "TikTok",
+          "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Translate comments",
+      "description": "Adds comment translation controls that use TikTok's loaded comment batch. Supports TikTok 43.8.3.",
+      "use": true,
+      "dependencies": [
+        "BytecodePatch"
+      ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
