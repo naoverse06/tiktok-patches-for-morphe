@@ -14,7 +14,7 @@ val disableLoginRequirementPatch = bytecodePatch(
     description = "Disables mandatory login for TikTok. (Supports TikTok 43.8.3.)",
     default = true,
 ) {
-    compatibleWith(*AppCompatibilities.tiktok4383())
+    compatibleWith(*AppCompatibilities.tiktok4383GlobalAndJp())
 
     execute {
         listOf(

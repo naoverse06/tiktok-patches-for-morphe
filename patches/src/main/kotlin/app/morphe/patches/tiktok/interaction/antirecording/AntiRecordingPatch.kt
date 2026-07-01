@@ -12,7 +12,7 @@ val antiRecordingPatch = resourcePatch(
     description = "Disables screen recording and screenshot detection. (Supports TikTok 43.8.3.)",
     default = true,
 ) {
-    compatibleWith(*AppCompatibilities.tiktok4383())
+    compatibleWith(*AppCompatibilities.tiktok4383GlobalAndJp())
 
     dependsOn(
         bytecodePatch {

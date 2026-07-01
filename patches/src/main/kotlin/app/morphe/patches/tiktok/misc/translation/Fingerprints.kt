@@ -166,17 +166,18 @@ internal object TranslationServiceModeStateBroadcastFingerprint : Fingerprint(
 )
 
 internal object MultiCommentTranslationStartFingerprint : Fingerprint(
-    definingClass = "LX/0Pwq;",
-    name = "LJFF",
     returnType = "V",
-    parameters = listOf("Ljava/util/List;", "LX/0QML;", "Z"),
     custom = { method, _ ->
-        method.implementation?.instructions?.any { instruction ->
-            instruction.getReference<MethodReference>()?.let { reference ->
-                reference.definingClass == "Lcom/ss/android/ugc/aweme/comment/translation/CommentMultiTranslationApi\$RealApi;" &&
-                    reference.name == "getMultiTranslation"
+        method.name == "LJFF" &&
+            method.parameterTypes.size == 3 &&
+            method.parameterTypes[0] == "Ljava/util/List;" &&
+            method.parameterTypes[2] == "Z" &&
+            method.implementation?.instructions?.any { instruction ->
+                instruction.getReference<MethodReference>()?.let { reference ->
+                    reference.definingClass == "Lcom/ss/android/ugc/aweme/comment/translation/CommentMultiTranslationApi\$RealApi;" &&
+                        reference.name == "getMultiTranslation"
+                } == true
             } == true
-        } == true
     },
 )
 
@@ -184,51 +185,56 @@ internal object BaseCommentCellBindFingerprint : Fingerprint(
     definingClass = "Lcom/ss/android/ugc/aweme/commentv2/commentlist/powercell/BaseCommentCell;",
     name = "g7",
     returnType = "V",
-    parameters = listOf("LX/0srE;"),
     custom = { method, _ ->
-        method.implementation?.instructions?.any { instruction ->
-            instruction.getReference<FieldReference>()?.let { reference ->
-                reference.definingClass == "LX/0QMJ;" &&
+        method.parameterTypes.size == 1 &&
+            method.implementation?.instructions?.any { instruction ->
+                instruction.getReference<FieldReference>()?.let { reference ->
                     reference.name == "LLILZ" &&
-                    reference.type == "LX/0QML;"
+                        reference.type.startsWith("LX/")
+                } == true
+            } == true &&
+            method.implementation?.instructions?.any { instruction ->
+                instruction.getReference<FieldReference>()?.name == "LLILLL"
             } == true
-        } == true
     },
 )
 
 internal object CommentListLoadedFingerprint : Fingerprint(
-    definingClass = "LX/0sqp;",
-    name = "LJIJJLI",
     returnType = "V",
-    parameters = listOf(
-        "Lcom/ss/android/ugc/aweme/comment/model/CommentItemList;",
-        "Z",
-        "Ljava/lang/String;",
-        "Ljava/lang/String;",
-        "LX/0NJN;",
-        "Ljava/lang/String;",
-        "Ljava/lang/String;",
-        "LX/02vj;",
-        "I",
-        "I",
-    ),
     custom = { method, _ ->
-        method.implementation?.instructions?.any { instruction ->
-            instruction.getReference<FieldReference>()?.let { reference ->
-                reference.definingClass == "Lcom/ss/android/ugc/aweme/comment/model/CommentItemList;" &&
-                    reference.name == "items" &&
-                    reference.type == "Ljava/util/List;"
+        method.name == "LJIJJLI" &&
+            method.parameterTypes.size == 10 &&
+            method.parameterTypes[0] == "Lcom/ss/android/ugc/aweme/comment/model/CommentItemList;" &&
+            method.parameterTypes[1] == "Z" &&
+            method.parameterTypes[2] == "Ljava/lang/String;" &&
+            method.parameterTypes[3] == "Ljava/lang/String;" &&
+            method.parameterTypes[5] == "Ljava/lang/String;" &&
+            method.parameterTypes[6] == "Ljava/lang/String;" &&
+            method.parameterTypes[8] == "I" &&
+            method.parameterTypes[9] == "I" &&
+            method.implementation?.instructions?.any { instruction ->
+                instruction.getReference<FieldReference>()?.let { reference ->
+                    reference.definingClass == "Lcom/ss/android/ugc/aweme/comment/model/CommentItemList;" &&
+                        reference.name == "items" &&
+                        reference.type == "Ljava/util/List;"
+                } == true
+            } == true &&
+            method.implementation?.instructions?.any { instruction ->
+                instruction.getReference<FieldReference>()?.let { reference ->
+                    reference.definingClass == "Lcom/ss/android/ugc/aweme/comment/model/CommentItemList;" &&
+                        reference.name == "lazySplitItemsParseTask"
+                } == true
             } == true
-        } == true
     },
 )
 
 internal object MultiCommentTranslationCompleteFingerprint : Fingerprint(
-    definingClass = "LX/0QfV;",
     name = "run\$2",
     returnType = "V",
-    parameters = listOf("LX/0QfV;"),
     strings = listOf("MultiCommentTranslationTask startTranslate onComplete "),
+    custom = { method, classDef ->
+        method.parameterTypes == listOf(classDef.type)
+    },
 )
 
 internal object MultiCommentTranslationCacheCopyFingerprint : Fingerprint(

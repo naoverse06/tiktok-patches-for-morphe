@@ -20,7 +20,7 @@ val commentTranslationPatch = bytecodePatch(
 ) {
     dependsOn(sharedExtensionPatch)
 
-    compatibleWith(*AppCompatibilities.tiktok4383())
+    compatibleWith(*AppCompatibilities.tiktok4383GlobalAndJp())
 
     execute {
         SettingsStatusLoadFingerprint.method.addInstruction(
@@ -28,13 +28,24 @@ val commentTranslationPatch = bytecodePatch(
             "invoke-static {}, Lapp/morphe/extension/tiktok/settings/SettingsStatus;->enableCommentTranslation()V",
         )
 
+        val translationContextType = MultiCommentTranslationStartFingerprint.method.parameterTypes[1]
+
         BaseCommentCellBindFingerprint.method.apply {
+            val translationCellClass = implementation!!.instructions
+                .firstNotNullOfOrNull { instruction ->
+                    instruction.getReference<FieldReference>()?.takeIf { reference ->
+                        reference.name == "LLILZ" &&
+                            reference.type == translationContextType
+                    }?.definingClass
+                } ?: throw PatchException(
+                "Translate comments: could not locate bound comment translation cell.",
+            )
+
             val managerReadyIndex = implementation!!.instructions.withIndex()
                 .firstOrNull { (_, instruction) ->
                     instruction.getReference<FieldReference>()?.let { reference ->
-                        reference.definingClass == "LX/0QMJ;" &&
-                            reference.name == "LLILLJJLI" &&
-                            reference.type == "LX/0QMK;"
+                        reference.definingClass == translationCellClass &&
+                            reference.name == "LLILLJJLI"
                     } == true
                 }?.index ?: throw PatchException(
                 "Translate comments: could not locate bound comment translation manager.",

@@ -63,7 +63,7 @@ internal object StickerPreviewBinderFingerprint : Fingerprint(
         "Ljava/util/Map;",
     ),
     custom = { method, classDef ->
-        if (!classDef.endsWith("/05No;") || method.name != "LIZ") {
+        if (!(classDef.endsWith("/05No;") || classDef.endsWith("/05NZ;")) || method.name != "LIZ") {
             false
         } else {
             val instructions = method.implementation?.instructions
@@ -82,17 +82,30 @@ internal object StickerPreviewBinderFingerprint : Fingerprint(
                     }
 
                     instruction.getReference<MethodReference>()?.let { methodReference ->
-                        if (methodReference.definingClass == "LX/05No;" &&
-                            methodReference.name == "LIZIZ" &&
-                            methodReference.parameterTypes == listOf("LX/0Daq;", "LX/05Nn;") &&
-                            methodReference.returnType == "V"
-                        ) {
+                        val isGlobalActionButtonBinder =
+                            methodReference.definingClass == "LX/05No;" &&
+                                methodReference.name == "LIZIZ" &&
+                                methodReference.parameterTypes == listOf("LX/0Daq;", "LX/05Nn;") &&
+                                methodReference.returnType == "V"
+                        val isJpActionButtonBinder =
+                            methodReference.definingClass == "LX/05NZ;" &&
+                                methodReference.name == "LIZIZ" &&
+                                methodReference.parameterTypes == listOf("LX/0DZ0;", "LX/05NY;") &&
+                                methodReference.returnType == "V"
+                        if (isGlobalActionButtonBinder || isJpActionButtonBinder) {
                             bindsActionButton = true
                         }
 
-                        if (methodReference.definingClass == "LX/0zaJ;" &&
-                            methodReference.name == "LIZJ"
-                        ) {
+                        val isGlobalImageLoad =
+                            methodReference.definingClass == "LX/0zaJ;" &&
+                                methodReference.name == "LIZJ"
+                        val isJpImageLoad =
+                            methodReference.definingClass == "LX/0OLr;" &&
+                                methodReference.name == "LIZJ" &&
+                                methodReference.parameterTypes.contains(
+                                    "Lcom/ss/android/ugc/aweme/base/model/UrlModel;",
+                                )
+                        if (isGlobalImageLoad || isJpImageLoad) {
                             loadsStickerImage = true
                         }
                     }

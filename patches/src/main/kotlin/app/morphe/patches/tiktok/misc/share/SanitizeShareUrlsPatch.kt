@@ -15,7 +15,7 @@ val sanitizeShareUrlsPatch = bytecodePatch(
 ) {
     dependsOn(sharedExtensionPatch)
 
-    compatibleWith(*AppCompatibilities.tiktok4383())
+    compatibleWith(*AppCompatibilities.tiktok4383GlobalAndJp())
 
     execute {
         ShareUrlTrackerFingerprint.method.apply {
