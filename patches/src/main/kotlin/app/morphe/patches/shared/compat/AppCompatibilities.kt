@@ -227,14 +227,24 @@ internal object AppCompatibilities {
         targets = listOf(AppTarget("25.9.2.0"), AppTarget("26.1.2.0")),
     )
 
-    /** Target: TikTok 43.8.3 global package. */
-    fun tiktok4383(): Array<Compatibility> = arrayOf(
-        Compatibility(
-            name = "TikTok",
-            packageName = "com.zhiliaoapp.musically",
-            appIconColor = TIKTOK_COLOR,
-            targets = listOf(AppTarget("43.8.3")),
-        ),
+    private val TIKTOK_GLOBAL_4383 = Compatibility(
+        name = "TikTok",
+        packageName = "com.zhiliaoapp.musically",
+        appIconColor = TIKTOK_COLOR,
+        targets = listOf(AppTarget("43.8.3")),
     )
+
+    private val TIKTOK_JP_4383 = Compatibility(
+        name = "TikTok (JP)",
+        packageName = "com.ss.android.ugc.trill",
+        appIconColor = TIKTOK_COLOR,
+        targets = listOf(AppTarget("43.8.3")),
+    )
+
+    /** Target: TikTok 43.8.3 global package. */
+    fun tiktok4383(): Array<Compatibility> = arrayOf(TIKTOK_GLOBAL_4383)
+
+    /** Target: TikTok 43.8.3 global and JP packages. */
+    fun tiktok4383GlobalAndJp(): Array<Compatibility> = arrayOf(TIKTOK_GLOBAL_4383, TIKTOK_JP_4383)
 
 }

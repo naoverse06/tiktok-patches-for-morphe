@@ -1,7 +1,8 @@
 {
   "version": "0.3.1",
   "appNames": {
-    "com.zhiliaoapp.musically": "TikTok"
+    "com.zhiliaoapp.musically": "TikTok",
+    "com.ss.android.ugc.trill": "TikTok (JP)"
   },
   "patches": [
     {
@@ -14,12 +15,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -42,12 +58,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -68,12 +99,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -94,12 +140,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -122,12 +183,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -150,12 +226,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -178,12 +269,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -206,12 +312,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -232,12 +353,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -260,12 +396,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -286,12 +437,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -315,12 +481,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -343,12 +524,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -371,12 +567,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [
@@ -397,12 +608,27 @@
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
           "43.8.3"
+        ],
+        "com.ss.android.ugc.trill": [
+          "43.8.3"
         ]
       },
       "compatibility": [
         {
           "name": "TikTok",
           "packageName": "com.zhiliaoapp.musically",
+          "description": null,
+          "appIconColor": 16657493,
+          "targets": [
+            {
+              "version": "43.8.3",
+              "experimental": false
+            }
+          ]
+        },
+        {
+          "name": "TikTok (JP)",
+          "packageName": "com.ss.android.ugc.trill",
           "description": null,
           "appIconColor": 16657493,
           "targets": [

@@ -26,7 +26,7 @@ val settingsPatch = bytecodePatch(
 ) {
     dependsOn(sharedExtensionPatch)
 
-    compatibleWith(*AppCompatibilities.tiktok4383())
+    compatibleWith(*AppCompatibilities.tiktok4383GlobalAndJp())
 
     execute {
         val initializeSettingsMethodDescriptor =

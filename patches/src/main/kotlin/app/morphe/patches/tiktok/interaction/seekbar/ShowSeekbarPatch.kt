@@ -14,7 +14,7 @@ val showSeekbarPatch = bytecodePatch(
     description = "Shows a progress bar for all videos. (Supports TikTok 43.8.3.)",
     default = true,
 ) {
-    compatibleWith(*AppCompatibilities.tiktok4383())
+    compatibleWith(*AppCompatibilities.tiktok4383GlobalAndJp())
 
     execute {
         ShouldShowSeekBarFingerprint.method.addInstructions(

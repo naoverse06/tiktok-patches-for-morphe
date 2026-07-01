@@ -4,6 +4,7 @@ import app.morphe.patches.shared.compat.AppCompatibilities
 import app.morphe.patcher.extensions.InstructionExtensions.addInstructions
 import app.morphe.patcher.extensions.InstructionExtensions.getInstruction
 import app.morphe.patcher.extensions.InstructionExtensions.replaceInstruction
+import app.morphe.patcher.patch.PatchException
 import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.util.getReference
 import app.morphe.util.indexOfFirstInstructionOrThrow
@@ -26,7 +27,7 @@ val customOfflineVideosLimitPatch = bytecodePatch(
     description = "Adds a configurable custom option to TikTok's offline videos menu. (Supports TikTok 43.8.3.)",
     default = true,
 ) {
-    compatibleWith(*AppCompatibilities.tiktok4383())
+    compatibleWith(*AppCompatibilities.tiktok4383GlobalAndJp())
 
     execute {
         OfflineModeSheetOptionsFingerprint.method.apply {
@@ -71,11 +72,13 @@ val customOfflineVideosLimitPatch = bytecodePatch(
         }
 
         OfflineModeOptionConfigFingerprint.method.apply {
+            val optionConfigClass = OfflineModeOptionConfigFingerprint.originalClassDef.type
+
             fun postProcessOptionsField(fieldName: String) {
                 val fieldWriteIndex = indexOfFirstInstructionOrThrow {
                     opcode == Opcode.SPUT_OBJECT &&
                         getReference<FieldReference>()?.let { field ->
-                            field.definingClass == "LX/0seq;" &&
+                            field.definingClass == optionConfigClass &&
                                 field.name == fieldName &&
                                 field.type == "Ljava/util/List;"
                         } == true
@@ -98,7 +101,10 @@ val customOfflineVideosLimitPatch = bytecodePatch(
             postProcessOptionsField("LJ")
         }
 
-        OfflineModeOptionEnumFingerprint.method.apply {
+        val offlineOptionEnumClass = OfflineModeOptionEnumFingerprint.originalClassDef.type
+        (OfflineModeOptionEnumFingerprint.methodOrNull ?: throw PatchException(
+            "Custom offline videos limit: could not resolve offline option enum constructor.",
+        )).apply {
             val customEnumSizeLiteralIndex = indexOfFirstInstructionOrThrow {
                 this is NarrowLiteralInstruction &&
                     this is OneRegisterInstruction &&
@@ -108,10 +114,10 @@ val customOfflineVideosLimitPatch = bytecodePatch(
             val customEnumConstructorIndex = indexOfFirstInstructionOrThrow(customEnumSizeLiteralIndex + 1) {
                 (opcode == Opcode.INVOKE_DIRECT || opcode == Opcode.INVOKE_DIRECT_RANGE) &&
                     getReference<MethodReference>()?.let { reference ->
-                        reference.definingClass == "LX/0sek;" &&
+                        reference.definingClass == offlineOptionEnumClass &&
                             reference.name == "<init>" &&
                             reference.returnType == "V" &&
-                            reference.parameterTypes.size == 5
+                            reference.parameterTypes == listOf("Ljava/lang/String;", "I", "I", "I", "I")
                     } == true
             }
             addInstructions(

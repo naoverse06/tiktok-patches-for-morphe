@@ -14,7 +14,7 @@ val fixGoogleLoginPatch = bytecodePatch(
     description = "Allows logging in with a Google account. (Supports TikTok 43.8.3.)",
     default = true,
 ) {
-    compatibleWith(*AppCompatibilities.tiktok4383())
+    compatibleWith(*AppCompatibilities.tiktok4383GlobalAndJp())
 
     execute {
         listOf(

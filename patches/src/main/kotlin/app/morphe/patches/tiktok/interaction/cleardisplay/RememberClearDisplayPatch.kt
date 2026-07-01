@@ -20,7 +20,7 @@ val rememberClearDisplayPatch = bytecodePatch(
     description = "Remembers the clear display configurations in between videos. (Supports TikTok 43.8.3.)",
     default = true,
 ) {
-    compatibleWith(*AppCompatibilities.tiktok4383())
+    compatibleWith(*AppCompatibilities.tiktok4383GlobalAndJp())
 
     execute {
         // Prevent excessive logging (can cause instability on 43.8.3).
