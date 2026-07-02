@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -116,18 +117,34 @@ public class TabSelectionPreference extends Preference {
 
         LinearLayout dialogView = new LinearLayout(context);
         dialogView.setOrientation(LinearLayout.VERTICAL);
-        dialogView.setBackground(createDialogBackground());
-        int padding = dpToPx(22);
-        dialogView.setPadding(padding, padding, padding, padding);
+        SettingsUi.styleBottomSheetContainer(dialogView);
 
+        FrameLayout header = new FrameLayout(context);
         TextView title = new TextView(context);
         title.setText(bottomTabs ? "Allowed bottom tabs" : "Allowed loaded tabs");
         title.setTextColor(getTitleTextColor());
-        title.setTextSize(20);
+        title.setGravity(Gravity.CENTER);
+        title.setTextSize(18);
         title.setTypeface(title.getTypeface(), Typeface.BOLD);
-        dialogView.addView(title, new LinearLayout.LayoutParams(
+        header.addView(title, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+
+        TextView closeButton = new TextView(context);
+        closeButton.setText("x");
+        closeButton.setTextColor(getTitleTextColor());
+        closeButton.setTextSize(28);
+        closeButton.setGravity(Gravity.CENTER);
+        closeButton.setTypeface(closeButton.getTypeface(), Typeface.BOLD);
+        header.addView(closeButton, new FrameLayout.LayoutParams(
+                dpToPx(48),
+                dpToPx(48),
+                Gravity.END | Gravity.CENTER_VERTICAL
+        ));
+        dialogView.addView(header, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                dpToPx(52)
         ));
 
         TextView helper = new TextView(context);
@@ -188,6 +205,7 @@ public class TabSelectionPreference extends Preference {
                 .setView(dialogView)
                 .create();
 
+        closeButton.setOnClickListener(view -> dialog.dismiss());
         showAllButton.setOnClickListener(view -> {
             selected.clear();
             for (OptionRow option : observedOptions) {
@@ -344,12 +362,8 @@ public class TabSelectionPreference extends Preference {
         return Math.round(dp * getContext().getResources().getDisplayMetrics().density);
     }
 
-    private GradientDrawable createDialogBackground() {
-        return SettingsUi.borderedSurface(getContext(), 6, true);
-    }
-
     private GradientDrawable createListBackground() {
-        return SettingsUi.borderedSurface(getContext(), 4, false);
+        return SettingsUi.roundedSurface(getContext(), 12, false);
     }
 
     private static int getDialogBackgroundColor() {

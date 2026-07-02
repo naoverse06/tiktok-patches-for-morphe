@@ -7,14 +7,21 @@ package app.morphe.extension.tiktok.settings;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import app.morphe.extension.shared.Logger;
 import app.morphe.extension.shared.Utils;
+import app.morphe.extension.tiktok.settings.preference.SettingsUi;
 import app.morphe.extension.tiktok.settings.preference.TikTokPreferenceFragment;
 
 import com.bytedance.ies.ugc.aweme.commercialize.compliance.personalization.AdPersonalizationActivity;
@@ -58,15 +65,54 @@ public class TikTokActivityHook {
         }
 
         SettingsStatus.load();
+        Utils.setIsDarkModeEnabled(isDarkModeEnabled(base));
+        SettingsUi.styleWindow(base);
 
         LinearLayout linearLayout = new LinearLayout(base);
         linearLayout.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
         linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setBackgroundColor(SettingsUi.background());
         linearLayout.setFitsSystemWindows(true);
         linearLayout.setTransitionGroup(true);
 
+        FrameLayout toolbar = new FrameLayout(base);
+        toolbar.setBackgroundColor(SettingsUi.background());
+        toolbar.setPadding(0, SettingsUi.dp(base, 4), 0, 0);
+        linearLayout.addView(toolbar, new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                SettingsUi.dp(base, 72)
+        ));
+
+        ImageButton backButton = new ImageButton(base);
+        backButton.setImageDrawable(SettingsUi.backArrowDrawable(base));
+        backButton.setBackgroundColor(Color.TRANSPARENT);
+        backButton.setPadding(SettingsUi.dp(base, 18), SettingsUi.dp(base, 16),
+                SettingsUi.dp(base, 18), SettingsUi.dp(base, 16));
+        backButton.setOnClickListener(view -> base.finish());
+        FrameLayout.LayoutParams backParams = new FrameLayout.LayoutParams(
+                SettingsUi.dp(base, 58),
+                SettingsUi.dp(base, 58),
+                Gravity.START | Gravity.CENTER_VERTICAL
+        );
+        backParams.setMargins(SettingsUi.dp(base, 3), 0, 0, 0);
+        toolbar.addView(backButton, backParams);
+
+        TextView title = SettingsUi.text(
+                base,
+                "Morphe settings",
+                18,
+                SettingsUi.textPrimary(),
+                Typeface.BOLD
+        );
+        title.setGravity(Gravity.CENTER);
+        toolbar.addView(title, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+        ));
+
         FrameLayout fragment = new FrameLayout(base);
-        fragment.setLayoutParams(new FrameLayout.LayoutParams(-1, -1));
+        fragment.setLayoutParams(new LinearLayout.LayoutParams(-1, 0, 1));
+        fragment.setBackgroundColor(SettingsUi.background());
         int fragmentId = View.generateViewId();
         fragment.setId(fragmentId);
 
@@ -90,6 +136,12 @@ public class TikTokActivityHook {
         } else {
             Logger.printDebug(() -> "Utils.getContext() return null");
         }
+    }
+
+    private static boolean isDarkModeEnabled(Context context) {
+        final int currentNightMode = context.getResources().getConfiguration().uiMode
+                & Configuration.UI_MODE_NIGHT_MASK;
+        return currentNightMode == Configuration.UI_MODE_NIGHT_YES;
     }
 }
 

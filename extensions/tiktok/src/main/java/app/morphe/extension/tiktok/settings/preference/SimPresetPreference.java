@@ -84,18 +84,34 @@ public class SimPresetPreference extends Preference {
         Context context = getContext();
         LinearLayout dialogView = new LinearLayout(context);
         dialogView.setOrientation(LinearLayout.VERTICAL);
-        dialogView.setBackground(createDialogBackground());
-        int padding = dpToPx(22);
-        dialogView.setPadding(padding, padding, padding, padding);
+        SettingsUi.styleBottomSheetContainer(dialogView);
 
+        FrameLayout header = new FrameLayout(context);
         TextView title = new TextView(context);
         title.setText("SIM country preset");
         title.setTextColor(getTitleTextColor());
-        title.setTextSize(20);
+        title.setGravity(Gravity.CENTER);
+        title.setTextSize(18);
         title.setTypeface(title.getTypeface(), android.graphics.Typeface.BOLD);
-        dialogView.addView(title, new LinearLayout.LayoutParams(
+        header.addView(title, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+
+        TextView closeButton = new TextView(context);
+        closeButton.setText("x");
+        closeButton.setTextColor(getTitleTextColor());
+        closeButton.setTextSize(28);
+        closeButton.setGravity(Gravity.CENTER);
+        closeButton.setTypeface(closeButton.getTypeface(), android.graphics.Typeface.BOLD);
+        header.addView(closeButton, new FrameLayout.LayoutParams(
+                dpToPx(48),
+                dpToPx(48),
+                Gravity.END | Gravity.CENTER_VERTICAL
+        ));
+        dialogView.addView(header, new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                dpToPx(52)
         ));
 
         TextView helper = new TextView(context);
@@ -165,6 +181,7 @@ public class SimPresetPreference extends Preference {
         AlertDialog dialog = new AlertDialog.Builder(context)
                 .setView(dialogView)
                 .create();
+        closeButton.setOnClickListener(view -> dialog.dismiss());
         cancelButton.setOnClickListener(view -> dialog.dismiss());
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
@@ -239,12 +256,8 @@ public class SimPresetPreference extends Preference {
         return Math.round(dp * getContext().getResources().getDisplayMetrics().density);
     }
 
-    private GradientDrawable createDialogBackground() {
-        return SettingsUi.borderedSurface(getContext(), 6, true);
-    }
-
     private GradientDrawable createListBackground() {
-        return SettingsUi.borderedSurface(getContext(), 4, false);
+        return SettingsUi.roundedSurface(getContext(), 12, false);
     }
 
     private static int getDialogBackgroundColor() {

@@ -11,9 +11,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.provider.DocumentsContract;
+import android.view.View;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 
@@ -142,6 +145,22 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
         new SimSpoofPreferenceCategory(context, preferenceScreen);
         new ExtensionPreferenceCategory(context, preferenceScreen);
         new DebugPreferenceCategory(context, preferenceScreen);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        if (getView() != null) {
+            getView().setBackgroundColor(SettingsUi.background());
+            View list = getView().findViewById(android.R.id.list);
+            if (list instanceof ListView) {
+                SettingsUi.stylePreferenceScreen((ListView) list);
+            }
+        }
+        if (getActivity() != null) {
+            SettingsUi.styleWindow(getActivity());
+        }
     }
 
     @Override

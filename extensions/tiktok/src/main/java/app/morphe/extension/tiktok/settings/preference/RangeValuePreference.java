@@ -71,8 +71,7 @@ public class RangeValuePreference extends DialogPreference {
 
         LinearLayout dialogView = new LinearLayout(context);
         dialogView.setOrientation(LinearLayout.VERTICAL);
-        int padding = SettingsUi.dp(context, 22);
-        dialogView.setPadding(padding, padding, padding, SettingsUi.dp(context, 8));
+        SettingsUi.styleBottomSheetContainer(dialogView);
 
         TextView title = SettingsUi.text(
                 context,

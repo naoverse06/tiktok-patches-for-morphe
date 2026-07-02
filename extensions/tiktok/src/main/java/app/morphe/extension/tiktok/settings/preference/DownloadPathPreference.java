@@ -73,8 +73,7 @@ public class DownloadPathPreference extends DialogPreference {
         LinearLayout dialogView = new LinearLayout(context);
         dialogView.setLayoutParams(new LinearLayout.LayoutParams(-1, -1));
         dialogView.setOrientation(LinearLayout.VERTICAL);
-        int padding = SettingsUi.dp(context, 22);
-        dialogView.setPadding(padding, padding, padding, SettingsUi.dp(context, 8));
+        SettingsUi.styleBottomSheetContainer(dialogView);
 
         TextView title = SettingsUi.text(context, "Download path", 20, SettingsUi.textPrimary(), Typeface.BOLD);
         dialogView.addView(title, new LinearLayout.LayoutParams(
